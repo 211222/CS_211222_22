@@ -1,0 +1,20 @@
+{
+  "name": "cs_211222_22",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "nodemon ./api/index.js"
+  },
+  "author": "Danira",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.1",
+    "nodemon": "^2.0.16",
+    "pg": "^8.7.3",
+    "postgres": "^3.2.4",
+    "sequelize": "^6.21.0",
+    "socket.io": "^4.5.1"
+  }
+}
