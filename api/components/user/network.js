@@ -112,17 +112,10 @@ router.post("/login", function (req, res) {
     username,
     token: "token",
     id_user: "id_user",
-    values: [id, username, email,password,phone_number],
+   success:"ok",
   
   });
-  client
-  .query(query_request)
-  .then((r)=>{
-    _success(req, res, r,200);
-  })
-  .catch((e)=>{
-    _success(req, res, e, 200);
-  });
+  
 });
 //Sequelize
 router.get('/all_user_orm', async function (req, res){
