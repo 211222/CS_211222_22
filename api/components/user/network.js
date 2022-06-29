@@ -1,8 +1,8 @@
 import { Router } from "express";
+import { success  } from "../../../network/response.js";
+import {getData} from '../../../model/db.js';
+import {getUser} from '../../../model/Users.js';
 
-// Importaciones
-import { success as _success } from "../../../network/response.js";
-import getConnection from "../../../model/db.js";
 
 // Inicialización dependencias
 const router = Router();
@@ -112,8 +112,78 @@ router.post("/login", function (req, res) {
     username,
     token: "token",
     id_user: "id_user",
-    success: "ok",
+    values: [id, username, email,password,phone_number],
+  
+  });
+  client
+  .query(query_request)
+  .then((r)=>{
+    _success(req, res, r,200);
+  })
+  .catch((e)=>{
+    _success(req, res, e, 200);
   });
 });
+//Sequelize
+router.get('/all_user_orm', async function (req, res){
+  getUser.findAll({attributes: ['username', 'email', 'password', 'phone_number']})
+  getUser.findAll({attributes: ['id', 'username', 'email', 'password', 'phone_numer']})
+  .then(users =>{
+    res.send(users)
+  })
+  .catch(err => {
+    console.log(err)
+  })
+});
+
+router.delete('/delete_user_orm', async function(req, res){
+  let id= req.query.id;
+  console.log("id"+ req.query.id);
+  getUser.destroy({
+    where: {
+      id:id
+    }
+  })
+  .then((r)=> {
+    _success(req,res, r, 200);
+  })
+  .catch((e) =>{
+    _success(req, res, e, 200);
+  });
+});
+
+router.put('/update_user_orm', async function(req,res){
+  let id= req.query.id;
+  let newDatas = req.query;
+  getUser.findOne({where:{id:id}})
+  .then((r)=>{
+    r.update(newDatas)
+    _success(req, res, r, 200);
+    console.log('Listo ')
+  })
+  .catch((e)=> {
+    _success(req, res, e, 400);
+    console.log('Algo no anda bien')
+  });
+})
+
+router.post('/register_user_omr', async function (req, res){
+  getUser.create({
+    id: req.query.id,
+    username: req.query.username,
+    email:req.query.email,
+    password: req.query.password,
+    phone_number: req.query.phone_number
+  })
+  .then((r)=> {
+     _success(req, res, r, 200);
+     console.log('Todo bien')
+  })
+  .catch((e)=>{
+    _success(req. res, e, 400);
+    console.log('Algo no anda bien')
+  });
+})
+
 
 export default router;
