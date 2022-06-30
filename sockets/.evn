@@ -1,5 +1,0 @@
-  user: "postgres",
-  host: "localhost",
-  database: "CSDB",
-  password: "danirachampo18",
-  port: "5432",
