@@ -15,10 +15,6 @@ const User = getData.sequelizeClient.define('cat_users', {
         type: DataTypes.STRING,
         allowNull: false,
     },
-    lastName: {
-        type: DataTypes.STRING,
-        allowNull: false,
-    },
     email: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -39,7 +35,7 @@ const User = getData.sequelizeClient.define('cat_users', {
     hooks: {
         beforeCreate: (user, options) => {
             {
-                user.password = user.password && user.password != "" ? bcrpty.hashSync(user.password, 10) : "";
+                user.password = user.password && user.password != "" ? bcrypt.hashSync(user.password, 10) : "";
             }
         }
     }

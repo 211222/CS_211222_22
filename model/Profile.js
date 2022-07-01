@@ -47,4 +47,4 @@ const Profile = getData.sequelizeClient.define('cat_profiles', {
 
 
 
-export const getProfile = Profile;
+export const getProfile = Profile;                  

@@ -3,7 +3,7 @@ import { getUser } from "../model/Users.js";
 
 const router = Router();
 
-router.get('/get_all', async function (req, res) {
+router.get('/all', async function (req, res) {
     getUser.findAll({ exclude: [] })
         .then(users => {
             res.send(users)
@@ -13,6 +13,14 @@ router.get('/get_all', async function (req, res) {
         })
 
 });
+
+router.delete("/eliminar",async function(req, res){
+    await getUser.destroy({
+        where:{
+            id: req.query.id
+        }
+    });
+})
 
 
 router.post('/insert', async function (req, res) {
@@ -29,6 +37,8 @@ router.post('/insert', async function (req, res) {
         .catch(err => {
             console.log(err)
         })
+    
+
 
 });
 
